@@ -1,95 +1,54 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+import { useState } from "react"
+import styles from "./page.module.css"
+import NavBar from "./components/NavBar";
 
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+export default function WeatherPage(){
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState("");
+
+  async function getWeather(){
+    const res = await fetch(`/api/weather?city=${city}`);
+    const data = await res.json();
+    
+    if (data.weather && data.weather.name){
+      setCity(data.weather.name);
+    } else {
+      setCity("not found");
+    }
+  
+    if (data.weather && data.weather.weather && data.weather.weather[0] && data.weather.weather[0].main) {
+      setWeather(data.weather.weather[0].main);
+    } else {
+      setWeather("not found");
+    }
+  }
+
+  return(
+    <div className={styles.hidden}>
+        <NavBar />
+      <h2 className={styles.today}>今日の天気予報</h2>
+        <div className={styles.container}>
+      <div className={styles.inputContainer}>
+        <input
+          className={styles.textInput}
+          type="text"
+          placeholder="都市名を入力"
+          lang="ja"
+          onChange={(e) => setCity(e.target.value)}
+          value={city}
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <button className={styles.button} onClick={getWeather}>
+          Get weather info
+        </button>
+      </div>
+      <div className={styles.result}>
+        <h1 className={styles.city}>場所：{city}</h1>
+        <p lang="ja" className={styles.weather}>天気：{weather}</p>
+      </div>
+      <p>週間天気！！</p>
     </div>
-  );
+ </div>
+
+  )
 }
