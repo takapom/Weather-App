@@ -44,7 +44,9 @@ export default function WeatherPage(){
       </div>
       <div className={styles.result}>
         <h1 className={styles.city}>場所：{city}</h1>
-        <p lang="ja" className={styles.weather}>天気：{weather}</p>
+        <p className={styles.weather}>
+            天気：{weather === "Rain" ? "雨だよー" : weather === "Clouds" ? "曇りだよー" : weather === "Fine" ? "晴れ" : weather}
+        </p>
       </div>
       <p>週間天気！！</p>
     </div>

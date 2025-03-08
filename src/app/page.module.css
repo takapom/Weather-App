@@ -10,8 +10,33 @@
     font-family: Arial, sans-serif;
     margin-top: 20px;
   }
+
+  .today{
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 30px;
+    font-weight: bold;
+    color: rgb(98, 98, 133);
+}
+
+
+.textInput{
+    height: 1.3rem;
+    border-radius: 3px;
+    border: 2px solid #ccc;
+    padding: 5px;  /* 内側の余白を設定 */
+    
+}
+
+.button{
+    height: 35px;
+    text-align: center;
+    margin-right: 30px;
+}
   
 
+
+/* モバイル用！！！！ */
   @media (max-width: 480px) {
 
 
