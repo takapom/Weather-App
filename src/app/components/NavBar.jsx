@@ -25,7 +25,7 @@ export default function NavBar() {
       {/* 通常のナビゲーションリンク */}
       <ul className={`${styles.navLinks} ${isMenuOpen ? styles.open : ""}`}>
         <li className={styles.text}><Link href="/">検索</Link></li>
-        <li className={styles.text}><Link href="/">ニュース</Link></li>
+        <li className={styles.text}><Link href="https://www3.nhk.or.jp/news/">ニュース</Link></li>
         <li className={styles.text}><Link href="/tech">技術スタック</Link></li>
       </ul>
     </nav>
